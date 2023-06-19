@@ -18,19 +18,24 @@ exports.getAllnotes = async (req, res, next) => {
 exports.addnotes = async (req, res, next) => {
   const { title, description, user } = req.body;
 
+  let userbyid = await User.findById(user);
+
+  console.log(userbyid.notes);
+
+
   const notes = new Notes({
     title,
     description,
     user
   });
-  try {
-    await notes.save();
-  } catch (error) {
-    console.log(error);
 
+  await notes.save();
 
-  }
-  return res.status(201).json({ notes });
+  userbyid.notes.push(notes);
+
+  await userbyid.save();
+
+  return res.status(201).json({ userbyid });
 }
 
 exports.getnotByuserId = async (req, res, next) => {

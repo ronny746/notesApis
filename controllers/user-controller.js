@@ -26,10 +26,11 @@ exports.sendOtp = async (req, res ,next)=>{
   if(user){
     return res.status(404).json({ message: " Users Already Exist!" });
   }
-  let exitnumber = await Otp.find({mobile});
+  let exitnumber = await Otp.findOne({mobile:mobile});
+  console.log(exitnumber);
   
   if(exitnumber){
-    await Otp.updateOne({
+    await exitnumber.updateOne({
       mobile,
       otp
     });
@@ -48,7 +49,7 @@ exports.sendOtp = async (req, res ,next)=>{
 
 
   }
-  return res.status(201).json({ otp });
+  return res.status(201).json({ otp ,otpnew});
 }
 
 
@@ -74,7 +75,7 @@ exports.verifyOtp = async (req,res,next)=>{
 exports.getAllUser = async (req, res, next) => {
   let users;
   try {
-    users = await User.find();
+    users = await User.find().populate('notes');
   } catch (err) {
     console.log(err);
   }

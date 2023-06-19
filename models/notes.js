@@ -1,9 +1,11 @@
 const mongoose = require("mongoose");
+const { required } = require("nodemon/lib/config");
 
 const notesSchema = new mongoose.Schema({
     title:{
         type: String,
-        required: true
+        required: '{path} is required'
+
     },
     description:{
         type: String,
