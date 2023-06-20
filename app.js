@@ -7,7 +7,7 @@ app.use(express.json());
 app.use("/api",userroute);
 app.use("/api",notesroute);
 
-mongoose.connect('mongodb+srv://rkrana6631:ronny@cluster1.djbuyaj.mongodb.net/Blog?retryWrites=true&w=majority'
+mongoose.connect('Your String'
 ).then(() => app.listen(3000)
 ).then(() => console.log("connected to Database and running on port 3000")
 );
